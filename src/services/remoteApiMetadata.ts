@@ -10,7 +10,7 @@ public  getRemoteTypes = () => {
     var resolve;
     var reject;
     var promise = new Promise((resolve, reject) =>{
-        
+        //check configuration for which data file.
         if(!remotes){
             fs.readFile('C:\\spremoteapi\\src\\data\\remotes2016.json', (err, data) =>{
                 if (err) 
