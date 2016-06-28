@@ -1,0 +1,32 @@
+{
+    "name": "spremoteapi",
+    "displayName": "SPRemoteAPI",
+    "description": "VSCode extension for SharePoint and Office 365  REST  and  JavaScript API Discovery",
+    "version": "0.0.1",
+    "publisher": "SteveCurran",
+    "engines": {
+        "vscode": "^0.10.10"
+    },
+    "categories": [
+        "Other"
+    ],
+    "activationEvents": [
+        "onCommand:extension.spremoteapi"
+    ],
+    "main": "./out/src/extension",
+    "contributes": {
+        "commands": [{
+            "command": "extension.spremoteapi",
+            "title": "SPRemoteAPI"
+        }]
+    },
+    "scripts": {
+        "vscode:prepublish": "node ./node_modules/vscode/bin/compile",
+        "compile": "node ./node_modules/vscode/bin/compile -watch -p ./",
+        "postinstall": "node ./node_modules/vscode/bin/install"
+    },
+    "devDependencies": {
+        "typescript": "^1.8.5",
+        "vscode": "^0.11.0"
+    }
+}
