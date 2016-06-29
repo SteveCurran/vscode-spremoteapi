@@ -1,18 +1,19 @@
+import * as vscode from 'vscode';
 
 var remotes;
 var remoteNames = [];
 
+
 export class metaDataService {
        
-public  getRemoteTypes = () => {
+public  getRemoteTypes = (filePath) => {
     var fs = require('fs');
 
     var resolve;
     var reject;
     var promise = new Promise((resolve, reject) =>{
-        //check configuration for which data file.
         if(!remotes){
-            fs.readFile('C:\\spremoteapi\\src\\data\\remotes2016.json', (err, data) =>{
+            fs.readFile(filePath, (err, data) =>{
                 if (err) 
                 return reject(err);
                 

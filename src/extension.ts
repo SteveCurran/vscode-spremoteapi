@@ -3,13 +3,26 @@ import * as vscode from 'vscode';
 import * as data from './services/remoteApiMetadata';
 import * as content from './services/contentProvider';
 let ds = new data.metaDataService();
+var dataPathFile;
 
 
 export function activate(context: vscode.ExtensionContext) {
+    let config:any = vscode.workspace.getConfiguration("spremoteapi.options");
+    if(config){
+        if(config.apiType){
+            if(config.apiType == "2013"){
+                dataPathFile = context.asAbsolutePath("\\src\\data\\remotes2013.json");
+            }
+        }    
+    }
+
+    if(!dataPathFile){
+        dataPathFile = context.asAbsolutePath("\\src\\data\\remotes2016.json");
+    }
+    
     
     vscode.workspace.registerTextDocumentContentProvider("spremotescheme",
         {provideTextDocumentContent(uri){
-        
         var typeName = uri.authority;
         var memberType = uri.fsPath.substring(uri.fsPath.indexOf('\\')+1,uri.fsPath.lastIndexOf('\\'));
         var opName = uri.fsPath.substring(uri.fsPath.lastIndexOf('\\')+1,(uri.fsPath.length-5));
@@ -26,7 +39,7 @@ export function activate(context: vscode.ExtensionContext) {
     // The commandId parameter must match the command field in package.json
     let disposable = vscode.commands.registerCommand('extension.spremoteapi', () => {
          vscode.window.showQuickPick(new Promise((resolve, reject) => {
-             ds.getRemoteTypes().then(data=>{
+             ds.getRemoteTypes(dataPathFile).then(data=>{
                 return resolve(data); 
              }).catch(err=>{
                 return reject(err); 
