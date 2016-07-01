@@ -5,6 +5,6 @@ A VSCode extension to help you use and discover SharePoint and Office 365 Remote
 
 
 ### For more information
-![Alt Text](http://www.sheawong.com/wp-content/uploads/2013/08/keephatin.gif)
+![Alt Text](https://github.com/stevecurran/vscode-spremoteapi/raw/master/src/screenshots/spremoteapi.gif)
 
 **Enjoy!**
