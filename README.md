@@ -1,13 +1,10 @@
 # README
-## This is the README for your extension "spremoteapi"
-You can author your README using Visual Studio Code.  Here are some useful editor keyboard shortcuts:
+## SPRemoteAPI VSCode Extension 
+A VSCode extension to help you use and discover SharePoint and Office 365 Remote REST and JavaScript API
 
-* Split the editor (`Cmd+\` on OSX or `Ctrl+\` on Windows and Linux)
-* Toggle preview (`Shift+CMD+V` on OSX or `Shift+Ctrl+V` on Windows and Linux)
-* Press `Ctrl+Space` (Windows, Linux) or `Cmd+Space` (OSX) to see a list of Markdown snippets
+
 
 ### For more information
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
+[[ https://c2.staticflickr.com/8/7458/27907653992_55ba69af23_c.jpg ]]
 
 **Enjoy!**
