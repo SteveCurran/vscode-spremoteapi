@@ -11,13 +11,13 @@ export function activate(context: vscode.ExtensionContext) {
     if(config){
         if(config.apiType){
             if(config.apiType == "2013"){
-                dataPathFile = context.asAbsolutePath("\\src\\data\\remotes2013.json");
+                dataPathFile = context.asAbsolutePath("\\out\\src\\data\\remotes2013.json");
             }
         }    
     }
 
     if(!dataPathFile){
-        dataPathFile = context.asAbsolutePath("\\src\\data\\remotes2016.json");
+        dataPathFile = context.asAbsolutePath("\\out\\src\\data\\remotes2016.json");
     }
     
     

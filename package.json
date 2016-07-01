@@ -2,7 +2,7 @@
     "name": "spremoteapi",
     "displayName": "SPRemoteAPI",
     "description": "VSCode extension for SharePoint and Office 365  REST  and  JavaScript API Discovery",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "publisher": "SteveCurran",
     "engines": {
         "vscode": "^0.10.10"
