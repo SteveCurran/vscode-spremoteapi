@@ -5,6 +5,6 @@ A VSCode extension to help you use and discover SharePoint and Office 365 Remote
 
 
 ### For more information
-[[ https://c2.staticflickr.com/8/7458/27907653992_55ba69af23_c.jpg ]]
+![Alt Text](http://www.sheawong.com/wp-content/uploads/2013/08/keephatin.gif)
 
 **Enjoy!**
