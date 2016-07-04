@@ -17,6 +17,7 @@
     ],
     "license": "MIT",
     "homepage": "https://github.com/stevecurran/vscode-spremoteapi/blob/master/README.md",
+    "bugs":"https://github.com/SteveCurran/vscode-spremoteapi/issues",
     "repository": {
     "type": "git",
     "url": "https://github.com/stevecurran/vscode-spremoteapi.git"
