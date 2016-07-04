@@ -31,6 +31,6 @@ Below is example of the code window you are given when you select properties. It
 ![Alt Text](https://c2.staticflickr.com/8/7436/27969745441_2a79474539_b.jpg)
 
 ### SPRemoteAPI in action
-![Alt Text](https://github.com/SteveCurran/vscode-spremoteapi/master/src/screenshots/spremoteapi.gif)
+![Alt Text](https://github.com/SteveCurran/vscode-spremoteapi/blob/master/src/screenshots/spremoteapi.gif)
 
 **Enjoy!**
