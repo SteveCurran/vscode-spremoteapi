@@ -30,6 +30,7 @@ Choose a method and then you are presented a new code window (virtual document) 
 Below is example of the code window you are given when you select properties. It shows you all the available properties for the type and the information you need to determine what is available remotely from SharePoint Office 365.
 ![Alt Text](https://c2.staticflickr.com/8/7436/27969745441_2a79474539_b.jpg)
 
-
+### SPRemoteAPI in action
+![Alt Text](https://github.com/SteveCurran/vscode-spremoteapi/tree/master/src/screenshots/spremoteapi.gif)
 
 **Enjoy!**
