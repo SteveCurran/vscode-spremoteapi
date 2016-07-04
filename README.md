@@ -1,6 +1,8 @@
 # README
 ## SPRemoteAPI VSCode Extension 
- Discover what is available in SharePoint and Office 365 REST and JavaScript API without having to have SharePoint installed. You can type in a namespace and browse the methods and properties. You can determine if they are available to be used with REST and JavaScript. You can also see what is new in SharePoint 2016. Finally when looking at specific methods or functions the extension gives the required POST bodies and response payloads, allowing the developer to easily copy and paste this into his code. This also supports SharePoint 2013, just add the following to your user settings:
+ Discover what is available in SharePoint and Office 365 REST and JavaScript API without having to have SharePoint installed. You can type in a namespace and browse the methods and properties. You can determine if they are available to be used with REST and JavaScript. You can also see what is new in SharePoint 2016. Finally when looking at specific methods or functions the extension gives the required POST bodies and response payloads, allowing the developer to easily copy and paste this into his code. 
+ 
+ This also supports SharePoint 2013, just add the following to your user settings:
  ![Alt Text](https://c2.staticflickr.com/8/7535/27458815184_30d13313c6_o.png)
 
 ### Using SPRemoteAPI Extension (Step 1)
@@ -9,6 +11,7 @@ In VSCode just hit F1 and start typing SPRemoteAPI and you will see it appear in
 
 ### Using SPRemoteAPI Extension (Step 2)
 After selecting the SPRemoteAPI command you will be presented with all the available types in the SharePoint Office 365 remote API. You can start typing and the list will automatically filter as you type. The example below shows typing “move” and the list is filtered down to types with the word move contained in them. The is list shows a github icon (flame) next to types that are new in SharePoint 2016. It also lists whether the type can be used in REST or JavaScript. Some types are not available for both.
+
 ![Alt Text](https://c2.staticflickr.com/8/7117/27433483154_a2c1cae464_b.jpg)
 
 ### Using SPRemoteAPI Extension (Step 3)
