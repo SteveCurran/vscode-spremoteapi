@@ -2,12 +2,12 @@
     "name": "spremoteapi",
     "displayName": "SPRemoteAPI",
     "description": "VSCode extension for SharePoint Office 365  REST  and  JavaScript API Discovery",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "publisher": "SteveCurran",
-    "author":{
-        "name":"Steve Curran - MVP"
+    "author": {
+        "name": "Steve Curran - MVP"
     },
-    "icon":"images/SPRemoteAPI.png",
+    "icon": "images/SPRemoteAPI.png",
     "engines": {
         "vscode": "^0.10.10"
     },
@@ -17,10 +17,10 @@
     ],
     "license": "MIT",
     "homepage": "https://github.com/stevecurran/vscode-spremoteapi/blob/master/README.md",
-    "bugs":"https://github.com/SteveCurran/vscode-spremoteapi/issues",
+    "bugs": "https://github.com/SteveCurran/vscode-spremoteapi/issues",
     "repository": {
-    "type": "git",
-    "url": "https://github.com/stevecurran/vscode-spremoteapi.git"
+        "type": "git",
+        "url": "https://github.com/stevecurran/vscode-spremoteapi.git"
     },
     "keywords": [
         "REST",
@@ -33,10 +33,12 @@
     ],
     "main": "./out/src/extension",
     "contributes": {
-        "commands": [{
-            "command": "extension.spremoteapi",
-            "title": "SPRemoteAPI"
-        }]
+        "commands": [
+            {
+                "command": "extension.spremoteapi",
+                "title": "SPRemoteAPI"
+            }
+        ]
     },
     "scripts": {
         "vscode:prepublish": "node ./node_modules/vscode/bin/compile",
