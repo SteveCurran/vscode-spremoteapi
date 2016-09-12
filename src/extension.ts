@@ -47,6 +47,8 @@ export function activate(context: vscode.ExtensionContext) {
         }),{matchOnDetail:true}).then(
             val => { 
                 typeSelectOptionHandler(val);                      
+        }, reason => {
+            let v = reason;
         }
             
        );
@@ -60,7 +62,7 @@ export function deactivate() {
 }
 
 export function typeSelectOptionHandler(type){
-
+   
     if(type) {
         let item: any = type;
         let itemName = item.label.startsWith("$(octicon octicon-flame)") ? item.label.substr(24) : item.label;
@@ -108,7 +110,7 @@ export function typeSelectOptionHandler(type){
                 
             return;
         });
-
+ 
     }
   
 }

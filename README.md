@@ -1,4 +1,6 @@
 # README
+###SPRemoteAPI current does not work with VSCODE 1.5, please update to the September Recovery Update due 09/16/2016
+
 ## SPRemoteAPI VSCode Extension 
  Discover what is available in SharePoint and Office 365 REST and JavaScript API without having to have SharePoint installed. You can type in a namespace and browse the methods and properties. You can determine if they are available to be used with REST and JavaScript. You can also see what is new in SharePoint 2016. Finally when looking at specific methods or functions the extension gives the required JSON post bodies and response payloads, allowing the developer to easily copy and paste this into his code. 
  
