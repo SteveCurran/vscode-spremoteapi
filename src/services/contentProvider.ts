@@ -16,7 +16,10 @@ export class metadataContentProvider{
                 break;
             case "info":
                 content = this.buildInfoContent(type);
-                break;  
+                break; 
+            case "interface" :
+                content = this.buildInterface(type); 
+                break;    
             default:
                 content = JSON.stringify({error:"Type member not found"}) ;    
                 break;        
@@ -122,6 +125,45 @@ export class metadataContentProvider{
         
     }
 
+    buildInterface = (type:string):string => {
+        let interfaceContent:string;
+        let interfaceTemplate: string = "export interface !@iname {\r\n !@props \r\n}\r\n";
+        let propTemplate:string = "\t !@propname: !@typename;\r\n";
+        let props:string = "";
+
+        var rt:any = ds.findType(type)
+        var propertyContent:any = {};
+        let interfaceName = "I" + type.substr(type.lastIndexOf(".")+1);
+        
+        if(rt){
+            if(rt.Properties){
+                for(let prop in rt.Properties){
+                    let tprop:any = rt.Properties[prop]
+                    props = props + propTemplate.replace("!@propname",tprop.Name).replace("!@typename",
+                    this.transToTypscriptType(tprop.Metadata.PropertyType,tprop.Metadata.PropertyODataType));
+                }
+
+                interfaceContent = interfaceTemplate.replace("!@iname",interfaceName).replace("!@props",props.substr(0,(props.length - 2)));
+            }
+        }
+
+        return interfaceContent;
+    }
+
+    transToTypscriptType(propertyType:string,odataType:string){
+        let typescriptType:string = "";
+        let odtype = odataType.toLowerCase();
+        if(odtype == "primitive" || odtype == "multivalue"){
+            typescriptType = propertyType.substring(propertyType.lastIndexOf(".") + 1).toLowerCase();
+        }
+        else{
+            typescriptType = propertyType;
+        }
+
+        return typescriptType;
+
+    }
+
     generateJsonForMultiValueType = (pi:any) => {
         
             var complexJson;
@@ -175,6 +217,9 @@ export class metadataContentProvider{
                         nestedJson = this.generateJson(rt);
                         jsonObj[pv.Name] = nestedJson;        
                     }
+                    else{
+                        jsonObj[pv.Name] = null;
+                    }
                 }
                 else
                 {
@@ -198,6 +243,9 @@ export class metadataContentProvider{
                 if(rt){
                     nestedJson = this.generateJson(rt);
                     jsonObj["Items"][0] = nestedJson;        
+                }
+                else{
+                    jsonObj["Items"][0] = null;
                 }
             }
 

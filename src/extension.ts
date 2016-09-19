@@ -2,6 +2,7 @@
 import * as vscode from 'vscode';
 import * as data from './services/remoteApiMetadata';
 import * as content from './services/contentProvider';
+import * as r from './services/spremoteapi';
 let ds = new data.metaDataService();
 var dataPathFile;
 
@@ -16,7 +17,7 @@ export function activate(context: vscode.ExtensionContext) {
         }    
     }
 
-    if(!dataPathFile){
+    if(!dataPathFile){   
         dataPathFile = context.asAbsolutePath("\\out\\src\\data\\remotes2016.json");
     }
     
@@ -69,9 +70,18 @@ export function typeSelectOptionHandler(type){
         let typeInfo = ds.findTypeInfo(itemName);
         let optionMethods = <vscode.MessageItem>{title:"Methods (" +  typeInfo.methodCount + ")"};
         let optionProperties = <vscode.MessageItem>{title:"Properties (" +  typeInfo.propertyCount + ")"};
-    
-   
-        vscode.window.showInformationMessage(itemName,optionMethods,optionProperties).then(option => {
+        let optionCreateInterface = <vscode.MessageItem>{title:"Create Interface"};
+
+        let options:Array<vscode.MessageItem> = [];
+        if(typeInfo.methodCount > 0)
+            options.push(optionMethods);    
+        if(typeInfo.propertyCount > 0) { 
+            options.push(optionProperties);
+            options.push(optionCreateInterface);
+        }
+        
+
+        vscode.window.showInformationMessage<vscode.MessageItem>(itemName,...options).then(option => {
             if (typeof option == 'undefined') {
                 return;
             }
@@ -97,14 +107,24 @@ export function typeSelectOptionHandler(type){
             }
             else {    
                
-                   
-                let uri = vscode.Uri.parse('spremotescheme://' + itemName + '/properties/properties.json');
+                if(option.title.startsWith("Properties"))
+                {
+                    let uri = vscode.Uri.parse('spremotescheme://' + itemName + '/properties/properties.json');
         
-                vscode.workspace.openTextDocument(uri).then(doc=>{
-                    vscode.window.showTextDocument(doc,vscode.ViewColumn.Two);  
-                    return;
-                });                      
-                   
+                    vscode.workspace.openTextDocument(uri).then(doc=>{
+                        vscode.window.showTextDocument(doc,vscode.ViewColumn.Two);  
+                        return;
+                    });                      
+                }
+                else{
+                    let uri = vscode.Uri.parse('spremotescheme://' + itemName + '/interface/' + itemName + '.d.ts');
+        
+                    vscode.workspace.openTextDocument(uri).then(doc=>{
+                        vscode.window.showTextDocument(doc,vscode.ViewColumn.Two);  
+                        return;
+                    }); 
+                }
+
            
             }
                 
