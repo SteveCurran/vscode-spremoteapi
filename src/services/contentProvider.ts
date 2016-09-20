@@ -18,7 +18,7 @@ export class metadataContentProvider{
                 content = this.buildInfoContent(type);
                 break; 
             case "interface" :
-                content = this.buildInterface(type); 
+                content = this.buildAllInterfaces(type); 
                 break;    
             default:
                 content = JSON.stringify({error:"Type member not found"}) ;    
@@ -125,22 +125,19 @@ export class metadataContentProvider{
         
     }
 
-    buildInterface = (type:string):string => {
+     buildInterface = (rt:any):string => {
         let interfaceContent:string;
         let interfaceTemplate: string = "export interface !@iname {\r\n !@props \r\n}\r\n";
         let propTemplate:string = "\t !@propname: !@typename;\r\n";
         let props:string = "";
-
-        var rt:any = ds.findType(type)
-        var propertyContent:any = {};
-        let interfaceName = "I" + type.substr(type.lastIndexOf(".")+1);
+        let interfaceName = rt.Name.substr(rt.Name.lastIndexOf(".")+1);
         
         if(rt){
             if(rt.Properties){
                 for(let prop in rt.Properties){
                     let tprop:any = rt.Properties[prop]
-                    props = props + propTemplate.replace("!@propname",tprop.Name).replace("!@typename",
-                    this.transToTypscriptType(tprop.Metadata.PropertyType,tprop.Metadata.PropertyODataType));
+                    props = props + propTemplate.replace("!@propname",this.camelize(tprop.Name)).replace("!@typename",
+                    this.transToTypscriptType(tprop.Metadata));
                 }
 
                 interfaceContent = interfaceTemplate.replace("!@iname",interfaceName).replace("!@props",props.substr(0,(props.length - 2)));
@@ -150,18 +147,143 @@ export class metadataContentProvider{
         return interfaceContent;
     }
 
-    transToTypscriptType(propertyType:string,odataType:string){
+    buildAllInterfaces = (type:string):string => {
+        let interfaceContent:string = "";
+        let interfaceQueue:Array<any> = [];
+        let rt:any = ds.findType(type)
+
+        if(rt){
+            interfaceQueue.push(rt);
+            this.lookupTypes(interfaceQueue,type)
+        }
+
+        interfaceQueue.forEach(remoteType => {
+            interfaceContent = interfaceContent + this.buildInterface(remoteType); + "\r\n";  
+        });
+
+        return interfaceContent;
+    }
+
+    lookupTypes = (interfaceQueue:Array<any>,type:any):void =>{
+        let rt:any = ds.findType(type);
+        if(rt){
+            if(rt.Properties){
+                for(let prop in rt.Properties){
+                    let discoveredType:string = null;
+                    let tprop:any = rt.Properties[prop];
+                    let odtype = tprop.Metadata.PropertyODataType.toLowerCase();
+                    if(odtype != "primitive"){
+                        if(odtype =="multivalue")
+                        {
+                            if(!tprop.Metadata.ItemType.startsWith("System.Collections.Generic.Dictionary") && 
+                                !tprop.Metadata.ItemType.startsWith("System.")){
+                                if(tprop.Metadata.ItemType.indexOf("[") > 0){
+                                    let start:number = tprop.Metadata.ItemType.indexOf("[") + 1;
+                                    let end:number = tprop.Metadata.ItemType.indexOf("]");
+                                    discoveredType = tprop.Metadata.ItemType.subString(start,(start-end));
+                                }
+                            }
+                        }
+                        else{
+                            discoveredType = tprop.Metadata.PropertyType
+                        }
+                    }
+
+                    if(discoveredType){
+                        let dt:any = ds.findType(discoveredType)
+                        if(dt){
+                            interfaceQueue.push(dt);
+                            this.lookupTypes(interfaceQueue,discoveredType);
+                        }
+                        
+                    }
+                }
+            }
+        }
+    }
+
+    transPrimitiveType = (evalType:string):string =>{
         let typescriptType:string = "";
-        let odtype = odataType.toLowerCase();
-        if(odtype == "primitive" || odtype == "multivalue"){
-            typescriptType = propertyType.substring(propertyType.lastIndexOf(".") + 1).toLowerCase();
+        
+        switch(evalType){
+            case "int32":
+            case "int64":
+            case "double":
+            case "decimal":
+                typescriptType = "number";
+                break;
+            case "string":
+            case "guid":
+                typescriptType = "string";
+                break;
+            case "boolean":
+                typescriptType = "boolean";
+                break;
+            default:
+                //enum
+                typescriptType = "number"  
+                break;
+        }
+
+        return typescriptType;
+    }
+
+    transToTypscriptType(metadata:any){
+        let typescriptType:string = "";
+        let odtype = metadata.PropertyODataType.toLowerCase();
+        if(odtype == "primitive"){
+            let evalType = metadata.PropertyType.substring(metadata.PropertyType.lastIndexOf(".") + 1).toLowerCase();
+            typescriptType = this.transPrimitiveType(evalType);
         }
         else{
-            typescriptType = propertyType;
+            if(odtype =="multivalue")
+            {
+                typescriptType = this.transMultiValueType(metadata);
+            }
+            else{
+                //recurse
+                typescriptType = metadata.PropertyType.substring(metadata.PropertyType.lastIndexOf(".") + 1);
+            }
+            
         }
 
         return typescriptType;
 
+    }
+
+    transMultiValueType(metadata:any){
+        let typescriptType:string = "";
+        
+        if(metadata.ItemType.startsWith("System.Collections.Generic.Dictionary")){
+            typescriptType = "Array<[string,any]>";
+        }
+        else{
+            if(metadata.ItemType.startsWith("System.")){
+                let evalType = metadata.PropertyType.substring(metadata.PropertyType.lastIndexOf(".") + 1).toLowerCase();
+                typescriptType = this.transPrimitiveType(evalType) + "[]";
+            }
+            else{
+                if(metadata.ItemType.indexOf("[") > 0){
+                    let start:number = metadata.ItemType.indexOf("[") + 1;
+                    let end:number = metadata.ItemType.indexOf("]");
+                    let arrayType:string = metadata.ItemType.subString(start,(start-end));
+                    typescriptType = arrayType + "[]";
+                }
+                else{
+                    typescriptType = metadata.ItemType.substring(metadata.ItemType.lastIndexOf(".") + 1) + "[]";
+                }
+                
+            }
+        }
+ 
+        return typescriptType;
+
+    }
+
+    camelize(str) {
+        return str.replace(/(?:^\w|[A-Z]|\b\w)/g, function(letter, index) {
+            return index == 0 ? letter.toLowerCase() : letter.toUpperCase();
+        }).replace(/\s+/g, '');
     }
 
     generateJsonForMultiValueType = (pi:any) => {

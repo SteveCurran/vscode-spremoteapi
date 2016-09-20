@@ -2,7 +2,6 @@
 import * as vscode from 'vscode';
 import * as data from './services/remoteApiMetadata';
 import * as content from './services/contentProvider';
-import * as r from './services/spremoteapi';
 let ds = new data.metaDataService();
 var dataPathFile;
 
@@ -21,7 +20,7 @@ export function activate(context: vscode.ExtensionContext) {
         dataPathFile = context.asAbsolutePath("\\out\\src\\data\\remotes2016.json");
     }
     
-    
+
     vscode.workspace.registerTextDocumentContentProvider("spremotescheme",
         {provideTextDocumentContent(uri){
         var typeName = uri.authority;
