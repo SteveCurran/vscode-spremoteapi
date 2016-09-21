@@ -157,7 +157,8 @@ export class metadataContentProvider{
             this.lookupTypes(interfaceQueue,type)
         }
 
-        interfaceQueue.forEach(remoteType => {
+        let interfaceDedup:Array<any> = Array.from(new Set(interfaceQueue));
+        interfaceDedup.forEach(remoteType => {
             interfaceContent = interfaceContent + this.buildInterface(remoteType); + "\r\n";  
         });
 
@@ -182,10 +183,13 @@ export class metadataContentProvider{
                                     let end:number = tprop.Metadata.ItemType.indexOf("]");
                                     discoveredType = tprop.Metadata.ItemType.subString(start,(start-end));
                                 }
+                                else{
+                                    discoveredType = tprop.Metadata.ItemType;    
+                                }
                             }
                         }
                         else{
-                            discoveredType = tprop.Metadata.PropertyType
+                            discoveredType = tprop.Metadata.PropertyType;
                         }
                     }
 
@@ -219,6 +223,8 @@ export class metadataContentProvider{
             case "boolean":
                 typescriptType = "boolean";
                 break;
+            case "datetime":
+                typescriptType = "date";
             default:
                 //enum
                 typescriptType = "number"  
