@@ -5,6 +5,7 @@ import * as content from './services/contentProvider';
 let ds = new data.metaDataService();
 var dataPathFile;
 var externalsPathFile;
+var internals;
 
 
 export function activate(context: vscode.ExtensionContext) {
