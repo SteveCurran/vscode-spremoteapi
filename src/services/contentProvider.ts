@@ -128,7 +128,7 @@ export class metadataContentProvider{
     buildInterface = (rt:any):string => {
         let interfaceContent:string;
         let interfaceTemplate: string = "export interface !@iname {\r\n !@props \r\n}\r\n";
-        let propTemplate:string = "\t !@propname: !@typename;\r\n";
+        let propTemplate:string = "\t !@propname?: !@typename;\r\n";
         let props:string = "";
         let interfaceName = rt.Name.substr(rt.Name.lastIndexOf(".")+1).replace("+","");
         
@@ -166,8 +166,7 @@ export class metadataContentProvider{
             this.lookupTypes(interfaceQueue,type)
         }
 
-        let interfaceDedup:Array<any> = Array.from(new Set(interfaceQueue));
-        interfaceDedup.forEach(remoteType => {
+        interfaceQueue.forEach(remoteType => {
             interfaceContent = interfaceContent + this.buildInterface(remoteType); + "\r\n";  
         });
 
@@ -186,7 +185,7 @@ export class metadataContentProvider{
                         if(odtype =="multivalue")
                         {
                             if(!tprop.Metadata.ItemType.startsWith("System.Collections.Generic.Dictionary") && 
-                                !(tprop.Metadata.ItemType.startsWith("System.") && (tprop.Metadata.ItemType.match(/./g) || []).length == 1)){
+                                !this.isPrimitiveType(tprop.Metadata.ItemType)){
                                 if(tprop.Metadata.ItemType.indexOf("[") > 0){
                                     let start:number = tprop.Metadata.ItemType.indexOf("[") + 1;
                                     let end:number = tprop.Metadata.ItemType.indexOf("]");
@@ -283,13 +282,12 @@ export class metadataContentProvider{
 
     transMultiValueType(metadata:any){
         let typescriptType:string = "";
-        
+        let evalType = metadata.ItemType.substring(metadata.ItemType.lastIndexOf(".") + 1).toLowerCase();
         if(metadata.ItemType.startsWith("System.Collections.Generic.Dictionary")){
             typescriptType = "SPProperty" + "[]";
         }
         else{
-            if(metadata.ItemType.startsWith("System.") && (metadata.ItemType.match(/./g) || []).length == 1){
-                let evalType = metadata.PropertyType.substring(metadata.PropertyType.lastIndexOf(".") + 1).toLowerCase();
+            if(this.isPrimitiveType(metadata.ItemType)){
                 typescriptType = this.transPrimitiveType(evalType) + "[]";
             }
             else{
@@ -297,7 +295,12 @@ export class metadataContentProvider{
                     let start:number = metadata.ItemType.indexOf("[") + 1;
                     let end:number = metadata.ItemType.indexOf("]");
                     let arrayType:string = metadata.ItemType.subString(start,(start-end));
-                    typescriptType = arrayType + "[]";
+                    if(this.isPrimitiveType(arrayType)){
+                        typescriptType = this.transPrimitiveType(evalType) + "[]";    
+                    }
+                    else{
+                        typescriptType = arrayType + "[]";        
+                    }
                 }
                 else{
                     typescriptType = metadata.ItemType.substring(metadata.ItemType.lastIndexOf(".") + 1) + "[]";
@@ -308,6 +311,26 @@ export class metadataContentProvider{
  
         return typescriptType;
 
+    }
+
+    isPrimitiveType(evalType:string){
+        switch(evalType.toLowerCase()){
+            case "system.int32":
+            case "system.int64":
+            case "system.double":
+            case "system.decimal":
+            case "system.string":
+            case "system.guid":
+            case "system.boolean":
+            case "system.datetime":
+            case "system.timespan":
+                return true    
+            default:
+                if(evalType.toLowerCase().endsWith("type"))
+                    return true
+                else
+                    return false;
+        }
     }
 
     
