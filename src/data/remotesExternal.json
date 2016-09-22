@@ -1,0 +1,189 @@
+[
+{
+    "$type": "SPRemoteAPIAnalytics.Analytics.RemoteType, SPRemoteAPIAnalytics",
+    "Methods": [],
+    "Properties": [
+      {
+        "$type": "SPRemoteAPIAnalytics.Analytics.RemoteProperty, SPRemoteAPIAnalytics",
+        "Name": "Rows",
+        "Metadata": {
+          "$type": "SPRemoteAPIAnalytics.Metadata.RemotePropertyNodeInfo, SPRemoteAPIAnalytics",
+          "DefaultValue": "False",
+          "ExcludeFromDefaultRetrieval": false,
+          "IsStatic": false,
+          "IsBeta": false,
+          "OriginalName": "Rows",
+          "PropertyODataType": "MultiValue",
+          "PropertyType": "System.Collections.Generic.List`1[System.Data.DataRow]",
+          "PropertyTypeFullName": null,
+          "ReadOnly": false,
+          "RequiredForHttpPutRequest": true,
+          "RESTfulPropertyType": "",
+          "ItemType": "System.Data.DataRow",
+          "IsNew": false
+        }
+      }
+	],	  
+    "Metadata": {
+      "$type": "SPRemoteAPIAnalytics.Metadata.RemoteComplexTypeNodeInfo, SPRemoteAPIAnalytics",
+      "DefaultValue": null,
+      "IsOptional": false,
+      "Name": null,
+      "ParameterODataType": "ComplexType",
+      "ParameterType": null,
+      "ParameterTypeFullName": null,
+      "RESTfulParameterSource": null,
+      "Rest": true,
+      "JavaScript": true,
+      "Silverlight": true,
+      "DotNetFrameWork": true,
+      "TargetType": "System.Data.DataTable",
+      "TargetTypeScriptClientFullName": "System.Data.DataTable",
+      "ServerType": "System.Data.DataTable",
+      "Json": null,
+      "CollectionChildItemType": "",
+      "ItemType": "System.Data.DataTable",
+      "IsNew": false
+    },
+    "Name": "System.Data.DataTable",
+    "HasNew": false
+  },
+  {
+    "$type": "SPRemoteAPIAnalytics.Analytics.RemoteType, SPRemoteAPIAnalytics",
+    "Methods": [],
+    "Properties": [
+      {
+        "$type": "SPRemoteAPIAnalytics.Analytics.RemoteProperty, SPRemoteAPIAnalytics",
+        "Name": "Cells",
+        "Metadata": {
+          "$type": "SPRemoteAPIAnalytics.Metadata.RemotePropertyNodeInfo, SPRemoteAPIAnalytics",
+          "DefaultValue": "False",
+          "ExcludeFromDefaultRetrieval": false,
+          "IsStatic": false,
+          "IsBeta": false,
+          "OriginalName": "Cells",
+          "PropertyODataType": "MultiValue",
+          "PropertyType": "System.Collections.Generic.List`1[SPProperty]",
+          "PropertyTypeFullName": null,
+          "ReadOnly": false,
+          "RequiredForHttpPutRequest": true,
+          "RESTfulPropertyType": "",
+          "ItemType": "SPProperty",
+          "IsNew": false
+        }
+      }
+	],	  
+    "Metadata": {
+      "$type": "SPRemoteAPIAnalytics.Metadata.RemoteComplexTypeNodeInfo, SPRemoteAPIAnalytics",
+      "DefaultValue": null,
+      "IsOptional": false,
+      "Name": null,
+      "ParameterODataType": "ComplexType",
+      "ParameterType": null,
+      "ParameterTypeFullName": null,
+      "RESTfulParameterSource": null,
+      "Rest": true,
+      "JavaScript": true,
+      "Silverlight": true,
+      "DotNetFrameWork": true,
+      "TargetType": "System.Data.DataRow",
+      "TargetTypeScriptClientFullName": "System.Data.DataRow",
+      "ServerType": "System.Data.DataRow",
+      "Json": null,
+      "CollectionChildItemType": "",
+      "ItemType": null,
+      "IsNew": false
+    },
+    "Name": "System.Data.DataRow",
+    "HasNew": false
+  },
+  {
+    "$type": "SPRemoteAPIAnalytics.Analytics.RemoteType, SPRemoteAPIAnalytics",
+    "Methods": [],
+    "Properties": [
+      {
+        "$type": "SPRemoteAPIAnalytics.Analytics.RemoteProperty, SPRemoteAPIAnalytics",
+        "Name": "Key",
+        "Metadata": {
+          "$type": "SPRemoteAPIAnalytics.Metadata.RemotePropertyNodeInfo, SPRemoteAPIAnalytics",
+          "DefaultValue": "False",
+          "ExcludeFromDefaultRetrieval": false,
+          "IsStatic": false,
+          "IsBeta": false,
+          "OriginalName": "Cells",
+          "PropertyODataType": "Primitive",
+          "PropertyType": "System.String",
+          "PropertyTypeFullName": "System.String",
+          "ReadOnly": false,
+          "RequiredForHttpPutRequest": true,
+          "RESTfulPropertyType": "",
+          "ItemType": "System.String",
+          "IsNew": false
+        }
+      },
+	   {
+        "$type": "SPRemoteAPIAnalytics.Analytics.RemoteProperty, SPRemoteAPIAnalytics",
+        "Name": "Value",
+        "Metadata": {
+          "$type": "SPRemoteAPIAnalytics.Metadata.RemotePropertyNodeInfo, SPRemoteAPIAnalytics",
+          "DefaultValue": "False",
+          "ExcludeFromDefaultRetrieval": false,
+          "IsStatic": false,
+          "IsBeta": false,
+          "OriginalName": "Cells",
+          "PropertyODataType": "Primitive",
+          "PropertyType": "System.String",
+          "PropertyTypeFullName": "System.String",
+          "ReadOnly": false,
+          "RequiredForHttpPutRequest": true,
+          "RESTfulPropertyType": "",
+          "ItemType": "System.String",
+          "IsNew": false
+        }
+      },
+	   {
+        "$type": "SPRemoteAPIAnalytics.Analytics.RemoteProperty, SPRemoteAPIAnalytics",
+        "Name": "ValueType",
+        "Metadata": {
+          "$type": "SPRemoteAPIAnalytics.Metadata.RemotePropertyNodeInfo, SPRemoteAPIAnalytics",
+          "DefaultValue": "False",
+          "ExcludeFromDefaultRetrieval": false,
+          "IsStatic": false,
+          "IsBeta": false,
+          "OriginalName": "Cells",
+          "PropertyODataType": "Primitive",
+          "PropertyType": "System.String",
+          "PropertyTypeFullName": "System.String",
+          "ReadOnly": false,
+          "RequiredForHttpPutRequest": true,
+          "RESTfulPropertyType": "",
+          "ItemType": "System.String",
+          "IsNew": false
+        }
+      }
+	],	  
+    "Metadata": {
+      "$type": "SPRemoteAPIAnalytics.Metadata.RemoteComplexTypeNodeInfo, SPRemoteAPIAnalytics",
+      "DefaultValue": null,
+      "IsOptional": false,
+      "Name": null,
+      "ParameterODataType": "ComplexType",
+      "ParameterType": null,
+      "ParameterTypeFullName": null,
+      "RESTfulParameterSource": null,
+      "Rest": true,
+      "JavaScript": true,
+      "Silverlight": true,
+      "DotNetFrameWork": true,
+      "TargetType": "SPProperty",
+      "TargetTypeScriptClientFullName": "SPProperty",
+      "ServerType": "SPProperty",
+      "Json": null,
+      "CollectionChildItemType": "",
+      "ItemType": "SPProperty",
+      "IsNew": false
+    },
+    "Name": "SPProperty",
+    "HasNew": false
+  }    
+]

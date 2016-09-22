@@ -124,23 +124,32 @@ export class metadataContentProvider{
         return JSON.stringify({info:"You found " + type});
         
     }
-
-     buildInterface = (rt:any):string => {
+    
+    buildInterface = (rt:any):string => {
         let interfaceContent:string;
         let interfaceTemplate: string = "export interface !@iname {\r\n !@props \r\n}\r\n";
         let propTemplate:string = "\t !@propname: !@typename;\r\n";
         let props:string = "";
-        let interfaceName = rt.Name.substr(rt.Name.lastIndexOf(".")+1);
+        let interfaceName = rt.Name.substr(rt.Name.lastIndexOf(".")+1).replace("+","");
         
         if(rt){
             if(rt.Properties){
+                let seen:Array<string> = [];
                 for(let prop in rt.Properties){
+                    
                     let tprop:any = rt.Properties[prop]
-                    props = props + propTemplate.replace("!@propname",this.camelize(tprop.Name)).replace("!@typename",
-                    this.transToTypscriptType(tprop.Metadata));
+                    if(seen.indexOf(tprop.Name) === -1){
+                        props = props + propTemplate.replace("!@propname",tprop.Name).replace("!@typename",
+                        this.transToTypscriptType(tprop.Metadata));
+                    }
+                  
+                    seen.push(tprop.Name);
                 }
 
                 interfaceContent = interfaceTemplate.replace("!@iname",interfaceName).replace("!@props",props.substr(0,(props.length - 2)));
+            }
+            else{
+                interfaceContent = interfaceTemplate.replace("!@iname",interfaceName).replace("!@props","");
             }
         }
 
@@ -166,7 +175,7 @@ export class metadataContentProvider{
     }
 
     lookupTypes = (interfaceQueue:Array<any>,type:any):void =>{
-        let rt:any = ds.findType(type);
+        let rt:any = ds.findType(type) || ds.findExternalType(type);
         if(rt){
             if(rt.Properties){
                 for(let prop in rt.Properties){
@@ -177,7 +186,7 @@ export class metadataContentProvider{
                         if(odtype =="multivalue")
                         {
                             if(!tprop.Metadata.ItemType.startsWith("System.Collections.Generic.Dictionary") && 
-                                !tprop.Metadata.ItemType.startsWith("System.")){
+                                !(tprop.Metadata.ItemType.startsWith("System.") && (tprop.Metadata.ItemType.match(/./g) || []).length == 1)){
                                 if(tprop.Metadata.ItemType.indexOf("[") > 0){
                                     let start:number = tprop.Metadata.ItemType.indexOf("[") + 1;
                                     let end:number = tprop.Metadata.ItemType.indexOf("]");
@@ -187,6 +196,11 @@ export class metadataContentProvider{
                                     discoveredType = tprop.Metadata.ItemType;    
                                 }
                             }
+                            else{
+                                if(tprop.Metadata.ItemType.startsWith("System.Collections.Generic.Dictionary")){
+                                    discoveredType = "SPProperty";
+                                }   
+                            }
                         }
                         else{
                             discoveredType = tprop.Metadata.PropertyType;
@@ -194,10 +208,19 @@ export class metadataContentProvider{
                     }
 
                     if(discoveredType){
-                        let dt:any = ds.findType(discoveredType)
+                        let dt:any = ds.findType(discoveredType) || ds.findExternalType(discoveredType);
                         if(dt){
-                            interfaceQueue.push(dt);
-                            this.lookupTypes(interfaceQueue,discoveredType);
+                            let dup:boolean = false;
+                            interfaceQueue.forEach(element => {
+                               if(element.Name === dt.Name){
+                                   dup = true;
+                               }
+                            });
+                           
+                            if(!dup){
+                                interfaceQueue.push(dt); 
+                                this.lookupTypes(interfaceQueue,discoveredType);       
+                            }
                         }
                         
                     }
@@ -225,6 +248,8 @@ export class metadataContentProvider{
                 break;
             case "datetime":
                 typescriptType = "date";
+            case "timespan":
+                typescriptType = "any";
             default:
                 //enum
                 typescriptType = "number"  
@@ -247,8 +272,7 @@ export class metadataContentProvider{
                 typescriptType = this.transMultiValueType(metadata);
             }
             else{
-                //recurse
-                typescriptType = metadata.PropertyType.substring(metadata.PropertyType.lastIndexOf(".") + 1);
+                typescriptType = metadata.PropertyType.substring(metadata.PropertyType.lastIndexOf(".") + 1).replace("+","");
             }
             
         }
@@ -261,10 +285,10 @@ export class metadataContentProvider{
         let typescriptType:string = "";
         
         if(metadata.ItemType.startsWith("System.Collections.Generic.Dictionary")){
-            typescriptType = "Array<[string,any]>";
+            typescriptType = "SPProperty" + "[]";
         }
         else{
-            if(metadata.ItemType.startsWith("System.")){
+            if(metadata.ItemType.startsWith("System.") && (metadata.ItemType.match(/./g) || []).length == 1){
                 let evalType = metadata.PropertyType.substring(metadata.PropertyType.lastIndexOf(".") + 1).toLowerCase();
                 typescriptType = this.transPrimitiveType(evalType) + "[]";
             }
@@ -286,11 +310,7 @@ export class metadataContentProvider{
 
     }
 
-    camelize(str) {
-        return str.replace(/(?:^\w|[A-Z]|\b\w)/g, function(letter, index) {
-            return index == 0 ? letter.toLowerCase() : letter.toUpperCase();
-        }).replace(/\s+/g, '');
-    }
+    
 
     generateJsonForMultiValueType = (pi:any) => {
         

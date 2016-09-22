@@ -2,6 +2,7 @@ import * as vscode from 'vscode';
 
 var remotes;
 var remoteNames = [];
+var externals;
 
 
 export class metaDataService {
@@ -33,6 +34,29 @@ public  getRemoteTypes = (filePath) => {
     });
     return promise;
 
+};
+
+public  getExternalTypes = (filePath) => {
+    var fs = require('fs');
+
+    var resolve;
+    var reject;
+    var promise = new Promise((resolve, reject) =>{
+        if(!externals){
+            fs.readFile(filePath, (err, data) =>{
+                if (err) 
+                return reject(err);
+                
+                externals = JSON.parse(data);
+                
+                return resolve();
+            });
+        }
+        else{
+            return resolve();    
+        }
+    });
+    return promise;
 };
 
 public buildTypeItemDetail = (metadata:any) =>{
@@ -86,6 +110,20 @@ public findType = (typeName:string) =>{
 
     if(remotes){
         item = remotes.find(function(item:any){
+            return item.Name == typeName;
+        });
+    }
+    
+    return item;
+    
+}
+
+public findExternalType = (typeName:string) =>{
+   
+    var item:any;
+
+    if(externals){
+        item = externals.find(function(item:any){
             return item.Name == typeName;
         });
     }

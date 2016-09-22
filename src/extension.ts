@@ -4,6 +4,7 @@ import * as data from './services/remoteApiMetadata';
 import * as content from './services/contentProvider';
 let ds = new data.metaDataService();
 var dataPathFile;
+var externalsPathFile;
 
 
 export function activate(context: vscode.ExtensionContext) {
@@ -20,6 +21,7 @@ export function activate(context: vscode.ExtensionContext) {
         dataPathFile = context.asAbsolutePath("\\out\\src\\data\\remotes2016.json");
     }
     
+    externalsPathFile = context.asAbsolutePath("\\out\\src\\data\\remotesExternal.json")
 
     vscode.workspace.registerTextDocumentContentProvider("spremotescheme",
         {provideTextDocumentContent(uri){
@@ -44,6 +46,7 @@ export function activate(context: vscode.ExtensionContext) {
              }).catch(err=>{
                 return reject(err); 
              });
+             ds.getExternalTypes(externalsPathFile);
         }),{matchOnDetail:true}).then(
             val => { 
                 typeSelectOptionHandler(val);                      
