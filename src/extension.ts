@@ -109,9 +109,7 @@ export function typeSelectOptionHandler(type){
                         let uri = vscode.Uri.parse('spremotescheme://' + itemName + '/method/'+ methodName + ".json");
                                         
                         vscode.workspace.openTextDocument(uri).then(doc=>{
-                            vscode.window.showTextDocument(doc,vscode.ViewColumn.Two,true).then((textEditor)=>{
-                                //var t:vscode.TextEditor = textEditor;
-                            });  
+                            vscode.window.showTextDocument(doc,vscode.ViewColumn.Two,true);
                             return;
                         });        
                     }

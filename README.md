@@ -1,11 +1,18 @@
 # README
-###SPRemoteAPI currently does not work with VSCODE 1.5, please update to the September Recovery Update due 09/16/2016
 
 ## SPRemoteAPI VSCode Extension 
  Discover what is available in SharePoint and Office 365 REST and JavaScript API without having to have SharePoint installed. You can type in a namespace and browse the methods and properties. You can determine if they are available to be used with REST and JavaScript. You can also see what is new in SharePoint 2016. Finally when looking at specific methods or functions the extension gives the required JSON post bodies and response payloads, allowing the developer to easily copy and paste this into his code. 
  
- This also supports SharePoint 2013, just add the following to your user settings:
- ![Alt Text](https://c2.staticflickr.com/8/7535/27458815184_30d13313c6_o.png)
+
+### New in version 1.5 Create TypeScript Intefaces
+Select the REST type and click the "Create Interface" options
+![Alt Text](https://c1.staticflickr.com/9/8070/29240483853_992658bbea_b.jpg)
+
+Copy interfaces into your own Typescript file
+![Alt Text](https://c2.staticflickr.com/6/5526/29240480373_8b6178e500_z.jpg)
+
+Import and get intellisense and type checking
+![Alt Text](https://c1.staticflickr.com/9/8348/29753385412_3e0f7201e4_o.png)
 
 ### Using SPRemoteAPI Extension (Step 1)
 In VSCode just hit F1 and start typing SPRemoteAPI and you will see it appear in the drop down list.
@@ -17,7 +24,7 @@ After selecting the SPRemoteAPI command you will be presented with all the avail
 ![Alt Text](https://c2.staticflickr.com/8/7117/27433483154_a2c1cae464_b.jpg)
 
 ### Using SPRemoteAPI Extension (Step 3)
-Once you have selected the type, you are presented an information dialog showing you the type along with options for displaying properties and methods. The options also shows you the number of each contained in the type. 
+Once you have selected the type, you are presented an information dialog showing you the type along with options for displaying properties and methods or creating a TypeScript interface. The options also shows you the number of each contained in the type. 
 ![Alt Text](https://c2.staticflickr.com/8/7334/28047195335_1eaf28fdd8_b.jpg)
 
 ### Using SPRemoteAPI Extension (Step 4)
@@ -34,5 +41,10 @@ Below is example of the code window you are given when you select properties. It
 
 ### SPRemoteAPI in action
 ![Alt Text](https://c2.staticflickr.com/8/7458/27907653992_724924a479_o.gif)
+
+### Supports SharePoint 2013
+This also supports SharePoint 2013, just add the following to your user settings:
+![Alt Text](https://c2.staticflickr.com/8/7535/27458815184_30d13313c6_o.png)
+
 
 **Enjoy!**

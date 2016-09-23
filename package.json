@@ -39,8 +39,7 @@
             {
                 "command": "extension.spremoteapi",
                 "title": "SPRemoteAPI"
-            }
-        ]
+        }]
     },
     "scripts": {
         "vscode:prepublish": "node ./node_modules/vscode/bin/compile",
