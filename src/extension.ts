@@ -2,6 +2,7 @@
 import * as vscode from 'vscode';
 import * as data from './services/remoteApiMetadata';
 import * as content from './services/contentProvider';
+import * as interfaceContent from './services/interfaceProvider';
 let ds = new data.metaDataService();
 var dataPathFile;
 var externalsPathFile;
@@ -26,12 +27,21 @@ export function activate(context: vscode.ExtensionContext) {
 
     vscode.workspace.registerTextDocumentContentProvider("spremotescheme",
         {provideTextDocumentContent(uri){
-        var typeName = uri.authority;
-        var memberType = uri.fsPath.substring(uri.fsPath.indexOf('\\')+1,uri.fsPath.lastIndexOf('\\'));
-        var opName = uri.fsPath.substring(uri.fsPath.lastIndexOf('\\')+1,(uri.fsPath.length-5));
-        let cs = new content.metadataContentProvider();
-        let con = cs.getContent(typeName,memberType,opName);
-        return con;}
+            var typeName = uri.authority;
+            var memberType = uri.fsPath.substring(uri.fsPath.indexOf('\\')+1,uri.fsPath.lastIndexOf('\\'));
+            var opName = uri.fsPath.substring(uri.fsPath.lastIndexOf('\\')+1,(uri.fsPath.length-5));
+            
+            if(memberType === "interface"){
+                let is = new interfaceContent.interfaceContentProvider();
+                let con = is.buildAllInterfaces(typeName);
+                return con;   
+            }
+            else{
+                let cs = new content.metadataContentProvider();
+                let con = cs.getContent(typeName,memberType,opName);
+                return con;
+            }
+        }
 
         });
 

@@ -45,10 +45,9 @@ public  getExternalTypes = (filePath) => {
         if(!externals){
             fs.readFile(filePath, (err, data) =>{
                 if (err) 
-                return reject(err);
+                    return reject(err);
                 
                 externals = JSON.parse(data);
-                
                 return resolve();
             });
         }
