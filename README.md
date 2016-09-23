@@ -4,14 +4,14 @@
  Discover what is available in SharePoint and Office 365 REST and JavaScript API without having to have SharePoint installed. You can type in a namespace and browse the methods and properties. You can determine if they are available to be used with REST and JavaScript. You can also see what is new in SharePoint 2016. Finally when looking at specific methods or functions the extension gives the required JSON post bodies and response payloads, allowing the developer to easily copy and paste this into his code. 
  
 
-### New in version 1.5 Create TypeScript Intefaces
+### New in version 1.5 Create TypeScript Interfaces
 Select the REST type and click the "Create Interface" options
 ![Alt Text](https://c1.staticflickr.com/9/8070/29240483853_992658bbea_b.jpg)
 
 
 ![Alt Text](https://c2.staticflickr.com/6/5526/29240480373_8b6178e500_z.jpg)
 
-Copy interfaces into your own Typescript file. Import and get intellisense and type checking
+Copy interfaces into your own Typescript file. Import and get intellisense and type checking.
 ![Alt Text](https://c1.staticflickr.com/9/8348/29753385412_3e0f7201e4_o.png)
 
 ### Using SPRemoteAPI Extension (Step 1)
