@@ -1,11 +1,14 @@
 # README
 
 ## SPRemoteAPI VSCode Extension 
- Discover what is available in SharePoint and Office 365 REST and JavaScript API without having to have SharePoint installed. You can type in a namespace and browse the methods and properties. You can determine if they are available to be used with REST and JavaScript. You can also see what is new in SharePoint 2016. Finally when looking at specific methods or functions the extension gives the required JSON post bodies and response payloads, allowing the developer to easily copy and paste this into his code. 
+ Discover what is available in SharePoint and Office 365 REST and JavaScript API without having to have SharePoint installed. 
+ Search for the type and browse the methods and properties. Check and see if the methods can be used in REST, JavaScript or if it is new to SharePoint 2016.
+ Copy and paste into your code JSON post bodies and response payloads. 
+ Create TypeScript interfaces to enable intellisense and type checking.
  
 
 ### New in version 1.5 Create TypeScript Interfaces
-Select the REST type and click the "Create Interface" options
+Select the SharePoint type and click the "Create Interface" options
 ![Alt Text](https://c1.staticflickr.com/9/8070/29240483853_992658bbea_b.jpg)
 
 
