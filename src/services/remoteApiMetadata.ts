@@ -86,7 +86,7 @@ public findTypeInfo = (typeName:string) =>{
     var typeInfo = {methodCount:0, propertyCount:0};
     if(remotes){
        var item = remotes.find(function(item:any){
-            return item.Name == typeName;
+            return item.Name.toLowerCase() == typeName.toLowerCase();
         });
         
         if(item){
@@ -109,7 +109,7 @@ public findType = (typeName:string) =>{
 
     if(remotes){
         item = remotes.find(function(item:any){
-            return item.Name == typeName;
+            return item.Name.toLowerCase() == typeName.toLowerCase();
         });
     }
     
@@ -123,7 +123,7 @@ public findExternalType = (typeName:string) =>{
 
     if(externals){
         item = externals.find(function(item:any){
-            return item.Name == typeName;
+            return item.Name.toLowerCase() == typeName.toLowerCase();
         });
     }
     
@@ -137,7 +137,7 @@ public findMethods = (remoteName) =>{
     
     if(remotes){
        var item = remotes.find(function(item:any){
-            return item.Name == remoteName;
+            return item.Name.toLowerCase() == remoteName.toLowerCase();
         });
         
         if(item){
@@ -161,13 +161,13 @@ public findMethod = (remoteName:string, methodName:string) =>{
     var remoteMethod;
     if(remotes){
        var item = remotes.find(function(item:any){
-            return item.Name == remoteName;
+            return item.Name.toLowerCase() == remoteName.toLowerCase();
         });
         
         if(item){
             if(item.Methods){
                var method = item.Methods.find(function(m:any){
-                   return m.Name == methodName;
+                   return m.Name.toLowerCase() == methodName.toLowerCase();
                });
                remoteMethod = method;
             }
@@ -184,7 +184,7 @@ public findProperties = (remoteName) =>{
     
     if(remotes){
        var item = remotes.find(function(item:any){
-            return item.Name == remoteName;
+            return item.Name.toLowerCase() == remoteName.toLowerCase();
         });
         
         if(item){

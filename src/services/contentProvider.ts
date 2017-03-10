@@ -60,9 +60,9 @@ export class metadataContentProvider{
 
                 if(response.type){
                     let rt = ds.findType(response.type);
-                    if(!rt)
+                    if(!rt && method.Response.Metadata.TargetType)
                         rt = ds.findType(method.Response.Metadata.TargetType);
-                    if(!rt)
+                    if(!rt && method.Response.Metadata.ServerType )
                         rt = ds.findType(method.Response.Metadata.ServerType);
                         
                     if(rt)
@@ -97,6 +97,8 @@ export class metadataContentProvider{
         propertyContent.name = type;
         
         if(rt){
+            //type is lower case version of name of type change to use remote type's propercase
+            propertyContent.name = rt.Name;
             if(rt.Properties){
                 for(let prop in rt.Properties){
                     let tprop:any = rt.Properties[prop]
